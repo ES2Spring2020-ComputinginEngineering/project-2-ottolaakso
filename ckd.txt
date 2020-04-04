@@ -1,4 +1,4 @@
-Blood Glucose Random,Hemoglobin,Class
+Glucose, haemoglobin, classification
 117,11.2,1
 70,9.5,1
 380,10.8,1

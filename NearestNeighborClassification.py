@@ -1,27 +1,146 @@
-#Please put your code for Step 2 and Step 3 in this file.
+""" Step 2 & 3 Code """
+""" Otto Laakso """
 
-
+import math
+import random
 import numpy as np
 import matplotlib.pyplot as plt
-import random
 
-
-# FUNCTIONS
 def openckdfile():
-    glucose, hemoglobin, classification = np.loadtxt('ckd.csv', delimiter=',', skiprows=1, unpack=True)
+    glucose, hemoglobin, classification = np.loadtxt('ckd.txt', delimiter=',', skiprows=1, unpack=True)
     return glucose, hemoglobin, classification
 
+def normalizeData(glucose, hemoglobin, classification):
+    
+    g_list = []
+    h_list = []
+    
+    for line in glucose:
+        g_scaled = (line-70)/(490-70)
+        g_list.append(g_scaled)
+    
+    for line in hemoglobin:
+        h_scaled = (line-3.1)/(17.8-3.1)
+        h_list.append(h_scaled)
+    
+    glucose_scaled = np.array(g_list)
+    hemoglobin_scaled = np.array(h_list)
+    classification = np.array(classification)
+
+    return glucose_scaled, hemoglobin_scaled, classification
+
+def graphData(glucose, hemoglobin, classification):
+    
+    plt.figure()
+    plt.plot(hemoglobin[classification==1],glucose[classification==1], "b.", label = "Class = 1")
+    plt.plot(hemoglobin[classification==0],glucose[classification==0], "r.", label = "Class = 0")
+    plt.xlabel("Hemoglobin")
+    plt.ylabel("Glucose")
+    plt.title("Hemoglobin vs. Glucose Correlation for CKD Patients")
+    plt.grid(True)
+    plt.legend()
+    plt.show()
+
+def createTestCase():
+    
+    newglucose = random.randint(70,490)
+    newhemoglobin = random.uniform(3.1, 17.8)
+    
+    return newglucose, newhemoglobin
+
+def calculateDistanceArray(newglucose, newhemoglobin, glucose, hemoglobin):
+    
+    distance = []
+    
+    for line in glucose:
+        d = math.sqrt((newglucose-glucose[line])**2 + (newhemoglobin - hemoglobin[line]))
+        distance.append(d)
+    
+    distance_array = np.array(distance)
+    
+    return distance_array
+
+def nearestNeighborClassifier(newglucose, newhemoglobin, glucose, hemoglobin, classification):
+    
+    calculateDistanceArray(newglucose, newhemoglobin, glucose, hemoglobin)
+    
+    min_index = np.argmin(distance_array)
+    nearest_class = classification[min_index]
+    
+    return nearest_class
+
+def graphTestCase(newglucose, newhemoglobin, glucose, hemoglobin, classification):
+    
+    plt.figure()
+    plt.plot(hemoglobin[classification==1],glucose[classification==1], "b.", label = "Class = 1")
+    plt.plot(hemoglobin[classification==0],glucose[classification==0], "r.", label = "Class = 0")
+    plt.plot(newhemoglobin, newglucose, "g.")
+    plt.xlabel("Hemoglobin")
+    plt.ylabel("Glucose")
+    plt.title("Test Case for CKD")
+    plt.grid(True)
+    plt.legend()
+    plt.show()
+    
+    return
+
+def kNearestNeighborsClassifier(k, newglucose, newhemoglobin, glucose, hemoglobin, classification):
+    
+    calculateDistanceArray(newglucose, newhemoglobin, glucose, hemoglobin)
+    sorted_indices = np.argsort(distance_array)
+    k_indices = sorted_indices[:k]
+    k_classifications = classification[k_indices]
+    
+    return k_classifications
+
+openckdfile()
+normalizeData(glucose, hemoglobin, classification)
+graphData(glucose, hemoglobin, classification)
+createTestCase()
+calculateDistanceArray(newglucose, newhemoglobin, glucose, hemoglobin)
 
 
 
 
-# MAIN SCRIPT
-glucose, hemoglobin, classification = openckdfile()
 
-plt.figure()
-plt.plot(hemoglobin[classification==1],glucose[classification==1], "k.", label = "Class 1")
-plt.plot(hemoglobin[classification==0],glucose[classification==0], "r.", label = "Class 0")
-plt.xlabel("Hemoglobin")
-plt.ylabel("Glucose")
-plt.legend()
-plt.show()
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
