@@ -62,7 +62,7 @@ def calculateDistanceArray(newglucose, newhemoglobin, glucose, hemoglobin):
 
 def nearestNeighborClassifier(newglucose, newhemoglobin, glucose, hemoglobin, classification):
     
-    calculateDistanceArray(newglucose, newhemoglobin, glucose, hemoglobin)
+    distance_array = calculateDistanceArray(newglucose, newhemoglobin, glucose, hemoglobin)
     
     min_index = np.argmin(distance_array)
     nearest_class = classification[min_index]
@@ -86,12 +86,16 @@ def graphTestCase(newglucose, newhemoglobin, glucose, hemoglobin, classification
 
 def kNearestNeighborsClassifier(k, newglucose, newhemoglobin, glucose, hemoglobin, classification):
     
-    calculateDistanceArray(newglucose, newhemoglobin, glucose, hemoglobin)
+    distance_array = calculateDistanceArray(newglucose, newhemoglobin, glucose, hemoglobin)
+    
     sorted_indices = np.argsort(distance_array)
     k_indices = sorted_indices[:k]
     k_classifications = classification[k_indices]
     
     return k_classifications
+
+glucose, hemoglobin, classification = openckdfile()
+newglucose, newhemoglobin = createTestCase()
 
 openckdfile()
 normalizeData(glucose, hemoglobin, classification)
