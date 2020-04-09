@@ -1,9 +1,10 @@
-#Please place your FUNCTION code for step 4 here.
+""" Step 4 Code """
+""" Otto Laakso """
 
+import math
+import random
 import numpy as np
 import matplotlib.pyplot as plt
-import random
-
 
 def openckdfile():
     glucose, hemoglobin, classification = np.loadtxt('ckd.csv', delimiter=',', skiprows=1, unpack=True)
