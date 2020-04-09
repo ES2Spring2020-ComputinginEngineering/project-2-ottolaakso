@@ -69,7 +69,7 @@ def nearestNeighborClassifier(newglucose, newhemoglobin, glucose_scaled, hemoglo
     
     min_index = np.argmin(distance_array)
     nearest_class = classification[min_index]
-    print(nearest_class)
+    print("Nearest Class:",nearest_class)
     
     return nearest_class
 
@@ -95,7 +95,7 @@ def kNearestNeighborsClassifier(k, newglucose, newhemoglobin, glucose_scaled, he
     sorted_indices = np.argsort(distance_array)
     k_indices = sorted_indices[:k]
     k_classifications = classification[k_indices]
-    print(k_classifications)
+    print("Three closest points:", k_classifications)
 
     k_class = np.median(k_classifications)
     
