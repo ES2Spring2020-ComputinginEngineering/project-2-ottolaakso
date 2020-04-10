@@ -40,38 +40,48 @@ def initialCentroids(k):
         g = (glucose[rand]-70)/(490-70)
         h = (hemoglobin[rand]-3.1)/(17.8-3.1)
         centroid_k = [g, h, i]
-        
         scaled_centroids.append(centroid_k)
   
-    return scaled_centroids
+    centroid_array = np.array(scaled_centroids)
+    
+    return centroid_array
 
-def calculateDistanceArray(scaled_centroids, glucose_value, hemoglobin_value):
+def calculateDistanceArray(centroid_array, glucose_value, hemoglobin_value):
     
     distance = []
     
-    for i in range(len(scaled_centroids)):
-        centroid = scaled_centroids[i]
+    for i in range(len(centroid_array)):
+        centroid = centroid_array[i]
         d = math.sqrt((centroid[0] - glucose_value[i])**2 + (centroid[1] - hemoglobin_value[i])**2)
         distance.append(d)
     
     distance_array = np.array(distance)
+    print(distance_array)
     
     return distance_array
 
 def kMeansClustering(k, glucose_scaled, hemoglobin_scaled):
  
-    scaled_centroids = initialCentroids(k)
-    nearest_centroids = []
+    centroid_array = initialCentroids(k)
+    
+    assignments = []
     
     for i in range(len(glucose_scaled)):
+        
         glucose_value = glucose_scaled[i]
         hemoglobin_value = hemoglobin_scaled[i]
-        distance_array = calculateDistanceArray(scaled_centroids, glucose_value, hemoglobin_value)
+        distance_array = calculateDistanceArray(centroid_array, glucose_value, hemoglobin_value)
         
         min_index = np.argmin(distance_array)
-        nearest_centroid = scaled_centroids[min_index][2]
-        nearest_centroids.append(nearest_centroid)
+        nearest_centroid = centroid_array[min_index][2]
+        
+        classification = [glucose_value, hemoglobin_value, nearest_centroid]
+        assignments.append(classification)
     
+    assignment_array = np.array(assignments)
+    
+    for i in range(len(centroid_array)):
+        
     
 
     
