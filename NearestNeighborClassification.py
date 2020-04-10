@@ -40,7 +40,7 @@ def graphData(glucose, hemoglobin, classification):
     plt.grid(True)
     plt.legend()
     plt.show()
-
+    
 def createTestCase():
     
     newg = random.randint(69,491)
