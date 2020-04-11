@@ -60,7 +60,7 @@ def calculateDistanceArray(centroid_array, glucose_value, hemoglobin_value):
     return distance_array
 
 def kMeansClustering(k, glucose_scaled, hemoglobin_scaled):
-    
+    """ This function seems to work for k<3 and I can't figure out why """    
     iteration = 0
     centroid_array = initialCentroids(k)
     
@@ -93,25 +93,48 @@ def kMeansClustering(k, glucose_scaled, hemoglobin_scaled):
         
     print(centroid_array)
         
-    return centroid_array, assignment_array, new_classes
+    return centroid_array, new_classes
+
+def unscaledCentroids(centroid_array):
+    
+    c = []
+    for i in range(len(centroid_array)):
+        c1 = (centroid_array[i][0] * (490-70) + 70)
+        c2 = (centroid_array[i][1] * (17.8-3.1) + 3.1)
+        c3 = centroid_array[i][2]
+        
+        c.append([c1, c2, c3])
+    
+    unscaled_centroids = np.array(c)
+    
+    return unscaled_centroids
+
+def graphingKMeans(glucose, hemoglobin, new_classes, unscaled_centroids):
+    
+    plt.figure()
+    for i in range(int(new_classes.max())+1):
+        rcolor = np.random.rand(3)
+        plt.plot(hemoglobin[new_classes==i],glucose[new_classes==i], ".", label = "Class " + str(i), color = rcolor)
+        plt.plot(unscaled_centroids[i, 1], unscaled_centroids[i, 0], "D", label = "Centroid " + str(i), color = rcolor)
+    plt.xlabel("Hemoglobin")
+    plt.ylabel("Glucose")
+    plt.title("K Means Clustering Demo")
+    plt.grid(True)
+    plt
+    plt.legend()
+    plt.show()
+    return
  
-k = 2
+k = 3
 glucose, hemoglobin, classification = openckdfile()
 glucose_scaled, hemoglobin_scaled, classification = normalizeData(glucose, hemoglobin, classification)
+centroid_array, new_classes = kMeansClustering(k, glucose_scaled, hemoglobin_scaled)
 
-
-centroid_array, assignment_array, new_classes = kMeansClustering(k, glucose_scaled, hemoglobin_scaled)
-
-
-
+unscaled_centroids = unscaledCentroids(centroid_array)
+graphingKMeans(glucose, hemoglobin, new_classes, unscaled_centroids)
 
     
 
-    
-    
-    
-
-    
     
     
     
