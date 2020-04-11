@@ -36,9 +36,8 @@ def initialCentroids(k):
     
     for i in range(k):
         
-        rand = random.randint(0, len(glucose))
-        g = (glucose[rand]-70)/(490-70)
-        h = (hemoglobin[rand]-3.1)/(17.8-3.1)
+        g = random.uniform(0,1)
+        h = random.uniform(0,1)
         centroid_k = [g, h, i]
         scaled_centroids.append(centroid_k)
   
@@ -57,7 +56,6 @@ def calculateDistanceArray(centroid_array, glucose_value, hemoglobin_value):
         distance.append(d)
 
     distance_array = np.array(distance)
-    #print(distance_array)
     
     return distance_array
 
@@ -96,7 +94,7 @@ def kMeansClustering(k, glucose_scaled, hemoglobin_scaled):
 
 
 
-k = 3
+k = 2
 glucose, hemoglobin, classification = openckdfile()
 glucose_scaled, hemoglobin_scaled, classification = normalizeData(glucose, hemoglobin, classification)
 
