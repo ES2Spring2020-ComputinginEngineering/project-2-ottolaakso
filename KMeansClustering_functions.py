@@ -61,13 +61,13 @@ def calculateDistanceArray(centroid_array, glucose_value, hemoglobin_value):
 
 def kMeansClustering(k, glucose_scaled, hemoglobin_scaled):
     
+    iteration = 0
     centroid_array = initialCentroids(k)
     
-    assignments = []
-    iteration = 0
-    
     while iteration < 100:
-   
+        
+        assignments = []
+        
         """Assignment Step """
         for i in range(len(glucose_scaled)):
         
@@ -77,30 +77,33 @@ def kMeansClustering(k, glucose_scaled, hemoglobin_scaled):
         
             min_index = np.argmin(distance_array)
             nearest_centroid = centroid_array[min_index][2]
-        
-            classification = [glucose_value, hemoglobin_value, nearest_centroid]
-            assignments.append(classification)
+    
+            assignments.append([glucose_value, hemoglobin_value, nearest_centroid])
     
         assignment_array = np.array(assignments)
-        classification = assignment_array[:,2]
+        new_classes = assignment_array[:,2]
         
         """ Update Step """
         for i in range(len(centroid_array)):
         
-            centroid_array[i][:2] = np.mean(assignment_array[classification==i])
+            centroid_array[i][0] = np.mean(assignment_array[new_classes==i][:,0])
+            centroid_array[i][1] = np.mean(assignment_array[new_classes==i][:,1])
         
         iteration += 1
-    
-
-
-
+        
+    print(centroid_array)
+        
+    return centroid_array, assignment_array, new_classes
+ 
 k = 2
 glucose, hemoglobin, classification = openckdfile()
 glucose_scaled, hemoglobin_scaled, classification = normalizeData(glucose, hemoglobin, classification)
 
-centroid_array = initialCentroids(k)
 
-kMeansClustering(k, glucose_scaled, hemoglobin_scaled)
+centroid_array, assignment_array, new_classes = kMeansClustering(k, glucose_scaled, hemoglobin_scaled)
+
+
+
 
     
 
