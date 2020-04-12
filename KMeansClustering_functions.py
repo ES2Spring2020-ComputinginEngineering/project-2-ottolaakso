@@ -60,7 +60,7 @@ def calculateDistanceArray(centroid_array, glucose_value, hemoglobin_value):
     return distance_array
 
 def kMeansClustering(k, glucose_scaled, hemoglobin_scaled):
-    """ This function seems to work for k<3 and I can't figure out why """    
+ 
     iteration = 0
     centroid_array = initialCentroids(k)
     
@@ -125,7 +125,7 @@ def graphingKMeans(glucose, hemoglobin, new_classes, unscaled_centroids):
     plt.show()
     return
  
-k = 3
+k = 2
 glucose, hemoglobin, classification = openckdfile()
 glucose_scaled, hemoglobin_scaled, classification = normalizeData(glucose, hemoglobin, classification)
 centroid_array, new_classes = kMeansClustering(k, glucose_scaled, hemoglobin_scaled)
