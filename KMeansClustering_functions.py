@@ -124,6 +124,14 @@ def graphingKMeans(glucose, hemoglobin, new_classes, unscaled_centroids):
     plt.legend()
     plt.show()
     return
+
+"""def TrueandFalsePositives(classification, new_classes):
+    
+    for i in range(2):
+        
+        print(sum(classification==i and new_classes==i))
+    
+    return"""
  
 k = 2
 glucose, hemoglobin, classification = openckdfile()
@@ -133,12 +141,15 @@ centroid_array, new_classes = kMeansClustering(k, glucose_scaled, hemoglobin_sca
 unscaled_centroids = unscaledCentroids(centroid_array)
 graphingKMeans(glucose, hemoglobin, new_classes, unscaled_centroids)
 
-    
+#TrueandFalsePositives(classification, new_classes)
 
-    
-    
-    
-    
+#print(np.logical_or(classification==1, new_classes==1)==True)
+
+print(sum(classification==0))        
+print(sum(classification==1))    
+
+print(sum(new_classes==0))
+print(sum(new_classes==1))
     
     
     

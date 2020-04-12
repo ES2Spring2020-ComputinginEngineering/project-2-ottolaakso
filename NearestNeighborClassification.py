@@ -7,10 +7,16 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def openckdfile():
+# Takes no parameters
+# Opens the file "ckd.txt" and separates glucose, hemoglobin, and classification values
+# Returns glucose, hemoglobin, and classification in separate lists
     glucose, hemoglobin, classification = np.loadtxt('ckd.txt', delimiter=',', skiprows=1, unpack=True)
     return glucose, hemoglobin, classification
 
 def normalizeData(glucose, hemoglobin, classification):
+# Takes glucose, hemoglobin, and classification lists as parameters
+# Normalizes each value of glucose and hemoglobin to fit a 0-1 scale
+# Returns normalized arrays glucose_scaled, hemoglobin_scaled, and classification
     
     g_list = []
     h_list = []
@@ -30,6 +36,9 @@ def normalizeData(glucose, hemoglobin, classification):
     return glucose_scaled, hemoglobin_scaled, classification
 
 def graphData(glucose, hemoglobin, classification):
+# Takes the original glucose, hemoglobin, and classification values
+# Graphs hemoglobin vs. glucose values and classifies them
+# Void function
     
     plt.figure()
     plt.plot(hemoglobin[classification==1],glucose[classification==1], "b.", label = "Class = 1")
@@ -42,6 +51,10 @@ def graphData(glucose, hemoglobin, classification):
     plt.show()
     
 def createTestCase():
+# Takes no parameters
+# Creates a random glucose value (newg) and a random hemoglobin value (newh)
+# Creates normalized versions of newg (newglucose) and newh (newhemoglobin)
+# Returns newg, newh, newglucose, newhemoglobin
     
     newg = random.randint(69,491)
     newh = random.uniform(3.1, 17.8)
@@ -52,6 +65,9 @@ def createTestCase():
     return newg, newh, newglucose, newhemoglobin
 
 def calculateDistanceArray(newglucose, newhemoglobin, glucose_scaled, hemoglobin_scaled):
+# Takes the random glucose and hemoglobin values and the scaled glucose and hemoglobin arrays
+# Calculates the distance between the random (glucose, hemoglobin) point for each training set point
+# Returns an array of the calculated distances
     
     distance = []
     
@@ -64,6 +80,9 @@ def calculateDistanceArray(newglucose, newhemoglobin, glucose_scaled, hemoglobin
     return distance_array
 
 def nearestNeighborClassifier(newglucose, newhemoglobin, glucose_scaled, hemoglobin_scaled, classification):
+# Takes newglucose, newhemoglobin, glucose_scaled, hemoglobin_scaled, and classification as parameters
+# Determines the classification of the training data point closest to the random test point
+# Returns the classification of the nearest training data point
     
     distance_array = calculateDistanceArray(newglucose, newhemoglobin, glucose_scaled, hemoglobin_scaled)
     
@@ -74,6 +93,9 @@ def nearestNeighborClassifier(newglucose, newhemoglobin, glucose_scaled, hemoglo
     return nearest_class
 
 def graphTestCase(newg, newh, glucose, hemoglobin, classification):
+# Takes the randomly generated glucose and hemoglobin values as well as the training data as parameters
+# Plots the test case in comparison to the training data
+# Returns None
     
     plt.figure()
     plt.plot(hemoglobin[classification==1],glucose[classification==1], "b.", label = "Class = 1.0")
@@ -89,6 +111,9 @@ def graphTestCase(newg, newh, glucose, hemoglobin, classification):
     return
 
 def kNearestNeighborsClassifier(k, newglucose, newhemoglobin, glucose_scaled, hemoglobin_scaled, classification):
+# Takes the number of points (k), newglucose, newhemoglobin, glucose_scaled, hemoglobin_scaled, and classification as parameters
+# Finds the classifications of k closest points to the test case
+# Returns the median value of the k classifications
     
     distance_array = calculateDistanceArray(newglucose, newhemoglobin, glucose_scaled, hemoglobin_scaled)
     
