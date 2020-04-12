@@ -7,11 +7,16 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def openckdfile():
+# Takes no parameters
+# Opens the file "ckd.txt" and separates glucose, hemoglobin, and classification values
+# Returns glucose, hemoglobin, and classification in separate lists
     glucose, hemoglobin, classification = np.loadtxt('ckd.txt', delimiter=',', skiprows=1, unpack=True)
     return glucose, hemoglobin, classification
 
 def normalizeData(glucose, hemoglobin, classification):
-    
+# Takes glucose, hemoglobin, and classification lists as parameters
+# Normalizes each value of glucose and hemoglobin to fit a 0-1 scale
+# Returns normalized arrays glucose_scaled, hemoglobin_scaled, and classification (not changed)
     g_list = []
     h_list = []
     
@@ -30,8 +35,9 @@ def normalizeData(glucose, hemoglobin, classification):
     return glucose_scaled, hemoglobin_scaled, classification
 
 def initialCentroids(k):
-    
-    glucose, hemoglobin, classification = openckdfile()
+# Takes the number of centroids, k, as a parameter
+# Assigns a random value for glucose and hemoglobin for each centroid, on a 0-1 scale
+# Assigns a classification for each centroid and returns the array of scaled centroids
     scaled_centroids = []
     
     for i in range(k):
@@ -46,6 +52,9 @@ def initialCentroids(k):
     return centroid_array
 
 def calculateDistanceArray(centroid_array, glucose_value, hemoglobin_value):
+# Takes an array of centroids, a glucose value, and a hemoglobin value as parameters
+# Calculates the distance between the (hemoglobin, glucose) point and each centroid
+# Returns an array of the calculated distances
     
     distance = []
     
@@ -60,6 +69,9 @@ def calculateDistanceArray(centroid_array, glucose_value, hemoglobin_value):
     return distance_array
 
 def kMeansClustering(k, glucose_scaled, hemoglobin_scaled):
+# Takes the number of clusters and the arrays of scaled glucose and hemoglobin values as parameters
+# Performs K Means Clustering by iterating through the assign-update steps
+# Returns an array of final centroid locations and an array of assigned classifications
  
     iteration = 0
     centroid_array = initialCentroids(k)
@@ -96,6 +108,9 @@ def kMeansClustering(k, glucose_scaled, hemoglobin_scaled):
     return centroid_array, new_classes
 
 def unscaledCentroids(centroid_array):
+# Takes an array of centroids as a parameter
+# Converts the normalized values to the inital glucose and hemoglobin scales
+# Returns an array of unscaled centroids
     
     c = []
     for i in range(len(centroid_array)):
@@ -110,6 +125,9 @@ def unscaledCentroids(centroid_array):
     return unscaled_centroids
 
 def graphingKMeans(glucose, hemoglobin, new_classes, unscaled_centroids):
+# Takes arrays of glucose, hemoglobin, new_classes, and unscaled_centroids as parameters
+# Graphs the centroids and the clusters and labels their classifications
+# Returns None
     
     plt.figure()
     for i in range(int(new_classes.max())+1):

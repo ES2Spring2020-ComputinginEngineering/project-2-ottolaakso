@@ -16,7 +16,7 @@ def openckdfile():
 def normalizeData(glucose, hemoglobin, classification):
 # Takes glucose, hemoglobin, and classification lists as parameters
 # Normalizes each value of glucose and hemoglobin to fit a 0-1 scale
-# Returns normalized arrays glucose_scaled, hemoglobin_scaled, and classification
+# Returns normalized arrays glucose_scaled, hemoglobin_scaled, and classification (not changed)
     
     g_list = []
     h_list = []
