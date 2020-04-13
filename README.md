@@ -10,7 +10,55 @@ Folder Contents:
 - KMeansClustering_driver.py - Driver for Step 4 of the project
 - README.md - instructions for running the contents of the folder
 
+Nearest Neighbour & K Nearest Neighbour Functions:
+
+To run the code, assign a value for k in the "Main Code" section and click "Run".
+
+def openckdfile():
+- Takes no parameters
+- Opens the file "ckd.txt" and separates glucose, hemoglobin, and classification values
+- Returns glucose, hemoglobin, and classification in separate lists
+
+def normalizeData(glucose, hemoglobin, classification):
+- Takes glucose, hemoglobin, and classification lists as parameters
+- Normalizes each value of glucose and hemoglobin to fit a 0-1 scale
+- Returns normalized arrays glucose_scaled, hemoglobin_scaled, and classification (not changed)
+
+def graphData(glucose, hemoglobin, classification):
+- Takes the original glucose, hemoglobin, and classification values
+- Graphs hemoglobin vs. glucose values and classifies them
+- Void function
+
+def createTestCase():
+- Takes no parameters
+- Creates a random glucose value (newg) and a random hemoglobin value (newh)
+- Creates normalized versions of newg (newglucose) and newh (newhemoglobin)
+- Returns newg, newh, newglucose, newhemoglobin
+
+def calculateDistanceArray(newglucose, newhemoglobin, glucose_scaled, hemoglobin_scaled):
+- Takes the random glucose and hemoglobin values and the scaled glucose and hemoglobin arrays
+- Calculates the distance between the random (glucose, hemoglobin) point for each training set point
+- Returns an array of the calculated distances
+
+def nearestNeighborClassifier(newglucose, newhemoglobin, glucose_scaled, hemoglobin_scaled, classification):
+- Takes newglucose, newhemoglobin, glucose_scaled, hemoglobin_scaled, and classification as parameters
+- Determines the classification of the training data point closest to the random test point
+- Returns the classification of the nearest training data point
+
+def graphTestCase(newg, newh, glucose, hemoglobin, classification):
+- Takes the randomly generated glucose and hemoglobin values as well as the training data as parameters
+- Plots the test case in comparison to the training data
+- Returns None
+
+def kNearestNeighborsClassifier(k, newglucose, newhemoglobin, glucose_scaled, hemoglobin_scaled, classification):
+- Takes the number of points (k), newglucose, newhemoglobin, glucose_scaled, hemoglobin_scaled, and classification as parameters
+- Finds the classifications of k closest points to the test case
+- Returns the median value of the k classifications
+
+
 K Means Clustering Functions:
+
+To run the code, assign a value for k in KMeansClustering_driver.py and click "Run".
 
 openckdfile():
 - Takes no parameters
