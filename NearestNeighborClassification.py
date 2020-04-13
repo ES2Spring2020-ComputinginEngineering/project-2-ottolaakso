@@ -88,7 +88,6 @@ def nearestNeighborClassifier(newglucose, newhemoglobin, glucose_scaled, hemoglo
     
     min_index = np.argmin(distance_array)
     nearest_class = classification[min_index]
-    print("Nearest Class:",nearest_class)
     
     return nearest_class
 
@@ -120,12 +119,12 @@ def kNearestNeighborsClassifier(k, newglucose, newhemoglobin, glucose_scaled, he
     sorted_indices = np.argsort(distance_array)
     k_indices = sorted_indices[:k]
     k_classifications = classification[k_indices]
-    print("Three closest points:", k_classifications)
 
     k_class = np.median(k_classifications)
     
     return k_class
 
+# Main Code
 glucose, hemoglobin, classification = openckdfile()
 glucose_scaled, hemoglobin_scaled, classification = normalizeData(glucose, hemoglobin, classification)
 newg, newh, newglucose, newhemoglobin = createTestCase()
