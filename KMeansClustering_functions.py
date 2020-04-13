@@ -1,4 +1,4 @@
-""" Step 4 Code """
+""" Step 4 Functions """
 """ Otto Laakso """
 
 import math
@@ -103,8 +103,6 @@ def kMeansClustering(k, glucose_scaled, hemoglobin_scaled):
         
         iteration += 1
         
-    print(centroid_array)
-        
     return centroid_array, new_classes
 
 def unscaledCentroids(centroid_array):
@@ -143,11 +141,12 @@ def graphingKMeans(glucose, hemoglobin, new_classes, unscaled_centroids):
     plt.show()
     return
 
-# Main Code
-k = 2  
+"""
+k = 5  
 glucose, hemoglobin, classification = openckdfile()
 glucose_scaled, hemoglobin_scaled, classification = normalizeData(glucose, hemoglobin, classification)
 centroid_array, new_classes = kMeansClustering(k, glucose_scaled, hemoglobin_scaled)
 
 unscaled_centroids = unscaledCentroids(centroid_array)
 graphingKMeans(glucose, hemoglobin, new_classes, unscaled_centroids)
+"""
