@@ -140,13 +140,3 @@ def graphingKMeans(glucose, hemoglobin, new_classes, unscaled_centroids):
     plt.legend()
     plt.show()
     return
-
-"""
-k = 5  
-glucose, hemoglobin, classification = openckdfile()
-glucose_scaled, hemoglobin_scaled, classification = normalizeData(glucose, hemoglobin, classification)
-centroid_array, new_classes = kMeansClustering(k, glucose_scaled, hemoglobin_scaled)
-
-unscaled_centroids = unscaledCentroids(centroid_array)
-graphingKMeans(glucose, hemoglobin, new_classes, unscaled_centroids)
-"""
